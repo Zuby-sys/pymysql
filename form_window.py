@@ -1,7 +1,4 @@
-from PyQt6.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QLabel, QMainWindow, QPushButton, QLineEdit, QDialog
-from PyQt6.QtCore import QStringListModel, QSize
-from database import Database
-
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QHBoxLayout, QVBoxLayout, QTextEdit, QFileDialog, QListView, QLabel, QLineEdit, QDialog
 
 class FormWindow(QDialog):
     def __init__(self, parent = None, object = None):
@@ -22,18 +19,16 @@ class FormWindow(QDialog):
         else:
             self.name_text = QLineEdit(object.split(":")[1])
 
-        self.button = QPushButton("Добавить")
-
         name_input = QHBoxLayout()
         name_input.addWidget(label)
         name_input.addWidget(self.name_text)
         name_input_widget = QWidget()
+        name_input_widget.setLayout(name_input)
 
-        layout = QVBoxLayout
+        layout = QVBoxLayout()
         layout.addWidget(name_input_widget)
         layout.addWidget(self.button)
 
         self.setLayout(layout)
-
-    def button_click():
-        finished = 1
+    def button_click(self):
+        self.done(1)

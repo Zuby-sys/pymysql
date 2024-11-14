@@ -1,5 +1,5 @@
 import sqlalchemy as sqla
-CONNECTION_STRING = "mysql+pymysql://root:root@localhost:3007/workinauditory"
+CONNECTION_STRING = "mysql+pymysql://root@localhost:3307/workinauditory"
 
 class Database():
     def __init__(self):
@@ -21,15 +21,16 @@ class Database():
         query = sqla.text("DELETE FROM animals WHERE id = :id")
         query = query.bindparams(sqla.bindparam("id", id))
         self.connection.execute(query)
-        self.connection.commit()
+        result = self.connection.commit()
+        return result
 
     def add_animals(self, name):
-        query = sqla.text("INSERT INTO animals (name VALUES) (:name)")
+        query = sqla.text("INSERT INTO animals (name) VALUES (:name)")
         query = query.bindparams(sqla.bindparam("name", name))
         self.connection.execute(query)
         self.connection.commit()
 
-    def edit_animals(self, name):
+    def edit_animals(self, name, id):
         query = sqla.text("UPDATE animals SET name = :name WHERE id = :id")
         query = query.bindparams(sqla.bindparam("name", name))
         query = query.bindparams(sqla.bindparam("id", id))
